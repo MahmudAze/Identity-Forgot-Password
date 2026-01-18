@@ -1,0 +1,19 @@
+﻿@model UpdateSliderVM
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Update</h4>
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="exampleInputName1">Photo</label>
+                    <img width="200px" height="200px" src="~/img/@Model.Image" />
+                    <input asp-for="Photo" type="file" class="form-control" id="exampleInputName1" placeholder="Name" style="margin-top:20px">
+                    <span class="text-danger" asp-validation-for="Photo"></span>
+                </div>
+                <button class="btn btn-primary mr-2">Submit</button>
+                <a class="btn btn-light" asp-action="Index">Back</a>
+            </form>
+        </div>
+    </div>
+</div>

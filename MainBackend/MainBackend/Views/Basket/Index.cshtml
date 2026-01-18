@@ -1,0 +1,48 @@
+﻿@model List<BasketDetailVM>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Count</th>
+                <th scope="col">TotalPrice</th>
+                <th scope="col">Settings</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                decimal totalPriceSum = 0;
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img width="100px" height="100px" src="~/img/@item.Image" /></td>
+                    <td>@item.Name</td>
+                    <td>@item.Category</td>
+                    <td>@item.Price azn</td>
+                    <td>@item.Count</td>
+                    <td class ="total-price">@item.TotalPrice azn</td>
+                    <td>
+                        <form asp-controller="Basket" asp-action="Delete" asp-route-id="@item.Id" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+
+                totalPriceSum += item.TotalPrice;
+            }
+        </tbody>
+    </table>
+
+
+    <h5 style="text-align: center">
+        Total: @totalPriceSum azn
+    </h5>
+
+</div>
+

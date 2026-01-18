@@ -1,0 +1,112 @@
+﻿@model UpdateProductVM
+
+<style>
+    label {
+        display: block;
+    }
+
+    body {
+        font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+</style>
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Product Update</h4>
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Main photo</label>
+                    <img width="200px" height="200px" src="~/img/@Model.MainPhoto" />
+                </div>
+
+                <div class="row" id="additional-images-area">
+                    @if (Model.ProductImages != null && Model.ProductImages.Any())
+                    {
+                        foreach (var img in Model.ProductImages)
+                        {
+                            <div class="col-3" id="img-wrapper-@img.Id">
+                                <div class="card">
+                                    <img src="~/img/@img.Image" class="card-img-top" style="height:150px; object-fit:cover;">
+                                    <div class="card-body text-center">
+                                        <button type="button" class="btn btn-danger btn-sm delete-image" data-id="@img.Id">X</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Main image</label>
+                    <input asp-for="MainImage" class="form-control">
+                    <span class="text-danger" asp-validation-for="MainImage"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Additional Images</label>
+                    <input asp-for="AdditionalImages" class="form-control">
+                    <span class="text-danger" asp-validation-for="AdditionalImages"></span>
+                </div>
+
+                
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Name">
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Description</label>
+                    <input asp-for="Description" type="text" class="form-control" placeholder="Name">
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Price</label>
+                    <input asp-for="Price" type="text" class="form-control" placeholder="Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Category</label>
+                    <select class="form-control" asp-for="CategoryId" asp-items="@ViewBag.Categories"></select>
+                    <span class="text-danger" asp-validation-for="CategoryId"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Tag</label>
+                    <select asp-for="TagIds" class="form-control" multiple asp-items="ViewBag.Tags">
+                    </select>
+                    <span class="text-danger" asp-validation-for="TagIds"></span>
+
+                    <ul class="list-group" style="margin-top:10px;">
+                        @if (Model.Tags != null && Model.Tags.Any())
+                        {
+                            foreach (var item in Model.Tags)
+                            {
+                                <li class="list-group-item">
+                                    @item.Tag?.Name -
+                                    <a class="btn btn-danger delete-tag"
+                                       style="width: 50px;"
+                                       asp-action="DeleteTag"
+                                       asp-route-id="@item.TagId"
+                                       asp-route-productId="@item.ProductId">X</a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item">No tags assigned.</li>
+                        }
+                    </ul>
+                </div>
+
+                <button class="btn btn-primary mr-2">Submit</button>
+                <a class="btn btn-light" asp-action="Index">Back</a>
+            </form>
+        </div>
+    </div>
+</div>

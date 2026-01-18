@@ -1,0 +1,35 @@
+﻿@model DetailProductVM
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Detail</h4>
+            <div class="form-group">
+                <label for="exampleInputName1">Main photo</label>
+                <img width="200px" height="200px" src="~/img/@Model.ProductImages.FirstOrDefault(m => m.IsMain)?.Image" />
+            </div>
+
+            <form class="forms-sample">
+                <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input asp-for="Name" type="text" class="form-control" disabled />
+
+                    <label for="exampleInputName1">Description</label>
+                    <input asp-for="Description" type="text" class="form-control" disabled>
+
+                    <label for="exampleInputName1">Price</label>
+                    <input asp-for="Price" type="text" class="form-control" disabled>
+
+                    <label for="exampleInputName1">Category Name</label>
+                    <input asp-for="CategoryName" type="text" class="form-control" disabled>
+
+                    @foreach (var item in Model.ProductImages.Where(m => !m.IsMain))
+                    {
+                        <img width="200px" height="200px" src="~/img/@item.Image" />
+                    }
+                </div>
+                <a class="btn btn-light" asp-action="Index">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
