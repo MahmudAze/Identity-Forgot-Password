@@ -3,13 +3,14 @@ using MainBackend.Areas.Admin.ViewModels.ProductVMs;
 using MainBackend.Data;
 using MainBackend.Helpers;
 using MainBackend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace MainBackend.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "SuperAdmin, Admin")]
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;

@@ -69,11 +69,15 @@
                                         <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary btn-rounded btn-fw">
                                             <i class="mdi mdi-border-color"></i>
                                         </a>
-                                        <button class="btn btn-danger btn-rounded btn-fw delete-product"
-                                                data-id="@item.Id"
-                                                data-url="@Url.Action("Delete", "Product", new { id = item.Id })">
-                                            <i class="mdi mdi-delete"></i>
-                                        </button>
+
+                                        @if (User.IsInRole("SuperAdmin"))
+                                        {
+                                            <button class="btn btn-danger btn-rounded btn-fw delete-product"
+                                                    data-id="@item.Id"
+                                                    data-url="@Url.Action("Delete", "Product", new { id = item.Id })">
+                                                <i class="mdi mdi-delete"></i>
+                                            </button>
+                                        }
                                     </div>
                                 </td>
                             </tr>

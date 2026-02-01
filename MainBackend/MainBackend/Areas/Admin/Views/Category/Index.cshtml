@@ -34,9 +34,13 @@
                                 <td>
                                     <a class="btn btn-info btn-rounded btn-fw" asp-action="Detail" asp-route-id="@item.Id"><i class="mdi mdi-alert-circle-outline"></i></a>
                                     <a class="btn btn-primary btn-rounded btn-fw" asp-action="Update" asp-route-id="@item.Id"><i class="mdi mdi-border-color"></i></a>
-                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline-block">
-                                        <button class="btn btn-danger btn-rounded btn-fw delete-category"><i class="mdi mdi-delete"></i></button>
-                                    </form>
+
+                                    @if (User.IsInRole("SuperAdmin"))
+                                    {
+                                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline-block">
+                                            <button class="btn btn-danger btn-rounded btn-fw delete-category"><i class="mdi mdi-delete"></i></button>
+                                        </form>
+                                    }
                                 </td>
                             </tr>
                         }

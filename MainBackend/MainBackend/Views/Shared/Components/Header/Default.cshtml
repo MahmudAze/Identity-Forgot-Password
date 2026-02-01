@@ -74,7 +74,16 @@
                             <ul class="list-unstyled py-3 elements">
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <li class=""><a class="px-1" asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                                    {
+                                        <li class=""><a class="px-1" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin Panel</a></li>
+                                        <li class=""><a class="px-1" asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class=""><a class="px-1" asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                    }
+
                                 }
                                 else
                                 {

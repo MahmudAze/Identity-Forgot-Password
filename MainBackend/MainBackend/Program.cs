@@ -1,6 +1,8 @@
 using MainBackend.Data;
 using MainBackend.Models;
 using MainBackend.Services;
+using MainBackend.Services.Implementations;
+using MainBackend.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
@@ -41,6 +43,7 @@ namespace MainBackend
                 opt.Password.RequireUppercase = true;
 
                 opt.User.RequireUniqueEmail = true;
+                opt.SignIn.RequireConfirmedEmail = true;
 
                 opt.Lockout.MaxFailedAccessAttempts = 10;
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
@@ -48,6 +51,8 @@ namespace MainBackend
             });
 
             builder.Services.AddScoped<LayoutService>();
+            builder.Services.AddScoped<IEmailService ,EmailService>();
+            builder.Services.AddScoped<IFileService, FileService>();
 
             var app = builder.Build();
 
